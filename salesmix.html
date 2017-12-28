@@ -1,0 +1,64 @@
+<html>
+        
+    <head>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                    </style>
+    </head>
+    <body>
+            
+        <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "test";
+                
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                else{
+        
+                        $sql = "
+                        SELECT Sales.salesID, empID, Sales.day, Sales.month, Sales.year, Product.pName, SalesDetails.pPricePerUnit, SalesDetails.totalPrice
+                        FROM Sales
+                        JOIN SalesDetails
+                        ON Sales.salesID=SalesDetails.salesID
+                        JOIN Product
+                        ON SalesDetails.pID=Product.pID
+                        ORDER BY year,month,day,pName;
+                        ";
+        
+                        $result = $conn->query($sql);
+                        
+                        if ($result->num_rows > 0) {
+                            echo "<table><tr><th>salesID</th><th>empID</th><th>day</th><th>month</th><th>year</th><th>pName</th><th>pPricePerUnit</th><th>totalPrice</th></tr>";
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<tr><td>".$row["salesID"]."</td><td>".$row["empID"]."</td><td>".$row["day"]."</td><td>".$row["month"]."</td><td>".$row["year"]."</td><td>".$row["pName"]."</td><td>".$row["pPricePerUnit"]."</td><td>".$row["totalPrice"]."</td></tr>";
+                                }
+                            echo "</table>";
+                        }
+                        else {
+                            echo "0 results";
+                        }
+                } 
+                ?>
+    
+                </body>
+    </html>

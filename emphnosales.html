@@ -1,0 +1,64 @@
+<html>
+        
+    <head>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                    </style>
+    </head>
+    <body>
+
+        <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "test";
+                
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                else{
+        
+                        $sql = "SELECT Employee.empID, empName,empCity, empState,empPostcode, empPhone, salesID, day, month, year
+                        FROM Employee 
+                        LEFT JOIN Sales
+                        ON Employee.empID = Sales.empID
+                        JOIN Telephone
+                        ON Telephone.empID= Employee.empID 
+                        ORDER BY Employee.empID;
+                        ";
+
+                        echo $sql;
+                        $result = $conn->query($sql);
+                        
+                        if ($result->num_rows > 0) {
+                            echo "<table><tr><th>empID</th><th>empName</th><th>empCity</th><th>empState</th><th>empPostcode</th><th>empPhone</th><th>salesID</th><th>day</th><th>month</th><th>year</th></tr>";
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr><td>".$row["empID"]."</td><td>".$row["empName"]."</td><td>".$row["empCity"]."</td><td>".$row["empState"]."</td><td>".$row["empPostcode"]."</td><td>0".$row["empPhone"]."</td><td>".$row["salesID"]."</td><td>".$row["day"]."</td><td>".$row["month"]."</td><td>".$row["year"]."</td></tr>";
+                            }
+                            echo "</table>";
+                        }
+                        else {
+                            echo "0 results";
+                        }
+                } 
+                ?>
+    
+                </body>
+    </html>

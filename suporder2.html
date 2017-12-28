@@ -1,0 +1,71 @@
+<html>
+        
+    <head>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                    </style>
+    </head>
+    <body>
+            
+        <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "test";
+                
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                else{
+        
+                        $sql = "
+                        SELECT Orders.orderID, orderDate, OrderDetails.pID, Product.pName, Quantity, Employee.empID, empName, empPhone
+                        FROM Orders
+                        JOIN OrderDetails
+                        ON Orders.orderID= OrderDetails.orderID
+                        JOIN Product
+                        ON OrderDetails.pID=Product.pID
+                        JOIN Employee
+                        ON Orders.empID= Employee.empID
+                        JOIN Telephone
+                        ON Telephone.empID= Employee.empID    
+                        WHERE Orders.suppID='S02'
+                        ORDER BY orderDate;
+                        ";
+        
+
+                        echo $sql;
+                        $result = $conn->query($sql);
+                        
+                        if ($result->num_rows > 0) {
+                            echo "<table><tr><th>orderID</th><th>orderDate</th><th>pID</th><th>pName</th><th>Quantity</th><th>empID</th><th>empName</th><th>empPhone</th></tr>";
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<tr><td>".$row["orderID"]."</td><td>".$row["orderDate"]."</td><td>".$row["pID"]."</td><td>".$row["pName"]."</td><td>".$row["Quantity"]."</td><td>".$row["empID"]."</td><td>".$row["empName"]."</td><td>0".$row["empPhone"]."</td></tr>";
+                                }
+                            echo "</table>";
+                        }
+                        else {
+                            echo "0 results";
+                        }
+                } 
+                ?>
+    
+                </body>
+    </html>

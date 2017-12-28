@@ -1,0 +1,70 @@
+<html>
+        
+        <head>
+            <style>
+                table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+        
+                td,
+                th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+        
+                tr:nth-child(even) {
+                    background-color: #dddddd;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <h1>
+            </h1>
+            <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "test";
+                        
+                        // Create connection
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        else{
+                            if(isset($_POST["s1date"])){
+                                $sql = "
+                                SELECT ROUND(SUM(totalPrice),2)
+                                FROM SalesDetails
+                                JOIN Sales
+                                ON Sales.salesID = SalesDetails.salesID
+                                WHERE Sales.day=".$_POST["s1date"].
+                                " AND Sales.month=".$_POST["s1month"].
+                                " AND Sales.year=".$_POST["s1year"].";
+                                
+                                ";
+                                
+                                echo $sql;
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    echo "<table><tr><th>ROUND(SUM(totalPrice),2)</th></tr>";
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<tr><td>".$row["ROUND(SUM(totalPrice),2)"]."</td></tr>";
+                                    }
+                                    echo "</table>";
+                                }
+                            }
+                                else {
+                                    echo "0 results";
+                                }
+                        } 
+                        ?>
+        
+        </body>
+        
+        </html>

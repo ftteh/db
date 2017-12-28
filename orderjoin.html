@@ -1,0 +1,65 @@
+<html>
+        
+        <head>
+            <style>
+                table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+        
+                td,
+                th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+        
+                tr:nth-child(even) {
+                    background-color: #dddddd;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <h1>
+            </h1>
+            <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "test";
+                        
+                        // Create connection
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        else{
+                            if(isset($_POST["odate"])){
+                                $sql = "SELECT SUM(Quantity)
+                                FROM Orders
+                                JOIN OrderDetails
+                                ON OrderDetails.orderID=Orders.orderID
+                                WHERE orderDate='".$_POST["odate"]."';";
+                
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    echo $sql;
+                                    echo "<table><tr><th>SUM(Quantity)</th>";
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<tr><td>".$row["SUM(Quantity)"]."</td></tr>";
+                                    }
+                                    echo "</table>";
+                                }
+                            }
+                                else {
+                                    echo "0 results";
+                                }
+                        } 
+                        ?>
+        
+        </body>
+        
+        </html>

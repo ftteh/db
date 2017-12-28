@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Supplier</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/3dbut.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/input.menu.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/emp.menu.js"></script>
+</head>
+
+
+<body class="container align-self-center">
+    <nav>
+        <ul>
+            <li>
+                <a href="main.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+
+    <h1>SUPPLIER</h1>
+
+    <div class="row" style="background-color:#ff5fe4;">
+        <p class="text-center"></p>1)Identify all the order received and ordered by order’s identification code &nbsp;&nbsp;
+        <button onclick="location.href='suporder1.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:#ff5fe4;">
+        <p class="text-center"></p>2)List all the details of order received (orderID, date, product’s id, name and quantity ordered) and name, id
+        and contact number of employee who placed order. &nbsp;&nbsp;
+        <button onclick="location.href='suporder2.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:#ff5fe4;">
+        <form class="form-inline" method="post" action="suporder3.html">
+            <p class="text-center"> 3.details of order on _ made by supplierid:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="s3date" placeholder="date">
+                <input type="text" class="form-control" name="s3ID" placeholder="supplier ID">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

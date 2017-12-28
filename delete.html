@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Delete</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/3dbut.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/input.menu.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/emp.menu.js"></script>
+</head>
+
+<body class="container align-self-center">
+    <?php
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "test";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{
+
+            if (isset($_POST["empID"]))                        
+            {
+                $empID= $_POST["empID"];
+
+                $sql2 = "DELETE FROM telephone WHERE empID = '". $empID ."';";
+                $sql = "DELETE FROM employee WHERE empID = '". $empID ."';";
+                
+
+                if ($conn->query($sql2) === TRUE && $conn->query($sql) === TRUE) {
+                    echo "Deleted successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+
+            if (isset($_POST["suppID"]))                       
+            {
+                $suppID= $_POST["suppID"];
+
+                $sql2 = "DELETE FROM phone WHERE suppID = '". $suppID ."';";
+                $sql = "DELETE FROM supplier WHERE suppID = '". $suppID ."';";
+
+                if ($conn->query($sql2) === TRUE && $conn->query($sql) === TRUE) {
+                    echo "Deleted successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        } 
+        ?>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="main.html">Home</a>
+                </li>
+                <li>
+                        <a href="input.html">Input</a>
+                    </li>
+                <li>
+                    <a href="update.html">Update</a>
+                </li>
+                <li>
+                    <a href="delete.html">Delete</a>
+                </li>
+                <li>
+                    <a href="query.html">Query</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="row" style="background-color:rgb(218, 250, 215);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Employee to be deleted</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="empID" placeholder="Id">
+                    <button type="submit" class="btn btn-success btn btn3d">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row" style="background-color:rgb(218, 250, 215);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Supplier to be deleted</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="suppID" placeholder="Id">
+                    <button type="submit" class="btn btn-success btn btn3d">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete</button>
+                </div>
+            </form>
+        </div>
+
+
+</body>
+
+</html>

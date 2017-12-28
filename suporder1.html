@@ -1,0 +1,59 @@
+<html>
+        
+    <head>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                    </style>
+    </head>
+    <body>
+        <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "test";
+                
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                else{
+
+                        $sql = "
+                        SELECT *
+                        FROM Orders
+                        ORDER BY orderID;
+                        ";
+                        
+                        echo "<h1>".$sql."</h1>";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            echo "<table><tr><th>orderID</th><th>orderDate</th><th>empID</th><th>suppID</th></tr>";
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr><td>".$row["orderID"]."</td><td>".$row["orderDate"]."</td><td>".$row["empID"]."</td><td>".$row["suppID"]."</td></tr>";
+                            }
+                            echo "</table>";
+                    }
+                        else {
+                            echo "0 results";
+                        }
+                } 
+                ?>
+    
+                </body>
+    </html>

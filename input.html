@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Input</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/3dbut.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/input.menu.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/emp.menu.js"></script>
+
+</head>
+
+<body class="container align-self-center">
+    <?php
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "test";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{
+
+            if (isset($_POST["empID"]) && isset($_POST["empName"]))                         /*employee insert*/
+            {
+                $empID= $_POST["empID"];
+                $empName=$_POST["empName"];
+
+                $empPhone= $_POST['empPhone'];
+                $empCity= $_POST['empCity'];
+                $empState= $_POST['empState'];
+                $empPostcode= $_POST['empPostcode'];
+
+                $sql = "INSERT INTO employee (empID,empName,empCity,empState,empPostcode) VALUES ('"  .$empID."','".$empName."','".$empCity."','".$empState."',".$empPostcode. ")";
+                $sql2 = "INSERT INTO telephone (empPhone,empID) VALUES ($empPhone,'" .$empID ."')";
+
+
+                if ($conn->query($sql) === TRUE && $conn->query($sql2)=== TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            
+
+            if (isset($_POST["salesID"]) && isset($_POST["pID"]))                         /*sales insert*/
+            {
+            
+                $salesID= $_POST["salesID"];
+                $pID= $_POST["pID"];
+                $empID=$_POST["empID"];
+                $pQuanSold= $_POST["pQuanSold"];
+                $pPricePerUnit= $_POST["pPricePerUnit"];
+                $day= $_POST["day"];
+                $month= $_POST["month"];
+                $year= $_POST["year"];
+
+                $sql = "INSERT INTO sales (salesID,empID,day,month,year)  VALUES ('"  .$salesID."','".$empID."',"."$day,$month,$year)";
+                $sql2 = "INSERT INTO salesdetails (salesID,pID,pQuanSold,pPricePerUnit,totalPrice)  VALUES ('".$salesID."','".$pID."',"."$pQuanSold,$pPricePerUnit,($pQuanSold*$pPricePerUnit))";
+
+                if ($conn->query($sql) === TRUE && $conn->query($sql2) === TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql2 . "<br>" . $conn->error;
+                }
+            }
+
+            if (isset($_POST["pID"])&& isset($_POST["pName"]))                                   //product insert
+            {
+                $pID =$_POST["pID"];
+                $pName =$_POST["pName"];
+                $pQuanInStore =$_POST["pQuanInStore"];
+                $pCost=$_POST["pCost"];
+                $pPrice=$_POST["pPrice"];
+                $pProfit=$_POST["pProfit"];
+                $suppID=$_POST["suppID"];
+
+                $sql = "INSERT INTO product (pID,pName,pQuanInStore,pCost,pPrice,pProfit,suppID) VALUES ('"  .$pID."','".$pName."',"."$pQuanInStore,$pCost,$pPrice,$pProfit".",'".$suppID."')";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+                
+            if (isset($_POST["orderID"])&& isset($_POST["Quantity"]))                                   //order insert
+            {
+                $orderID=$_POST["orderID"];
+                $orderDate="CURDATE()";
+                $empID=$_POST["empID"];
+                $suppID=$_POST["suppID"];
+                $pID=$_POST["pID"];
+                $Quantity=$_POST["Quantity"];
+
+                $sql = "INSERT INTO orders (orderID,orderDate,empID,suppID)  VALUES ('"  .$orderID."',".$orderDate.",'".$empID."','$suppID')";
+                $sq2 = "INSERT INTO orderdetails (pID,orderID,Quantity)  VALUES ('"  .$pID."','".$orderID."',"."$Quantity)";
+
+                if ($conn->query($sql) === TRUE && $conn->query($sq2) === TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+
+            if (isset($_POST["suppID"]) && isset($_POST["suppName"]))                         /*supplier insert*/
+            {
+                $suppID=$_POST["suppID"];
+                $suppName=$_POST["suppName"];
+                $suppPhone=$_POST["suppPhone"];
+                $suppCity=$_POST["suppCity"];
+                $suppState=$_POST["suppState"];
+                $suppPostcode=$_POST["suppPostcode"];
+
+                $sql = "INSERT INTO supplier (suppID,suppName,suppCity,suppState,suppPostcode)  VALUES ('"  .$suppID."','".$suppName."','".$suppCity."','".$suppState."',"."$suppPostcode)";
+                $sql2 = "INSERT INTO phone (suppPhone,suppID) VALUES ($suppPhone".",'".$suppID."')";
+
+                if ($conn->query($sql) === TRUE && $conn->query($sql2)=== TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        } 
+        ?>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="main.html">Home</a>
+                </li>
+                <li>
+                        <a href="input.html">Input</a>
+                    </li>
+                <li>
+                    <a href="update.html">Update</a>
+                </li>
+                <li>
+                    <a href="delete.html">Delete</a>
+                </li>
+                <li>
+                    <a href="query.html">Query</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="row" style="background-color:antiquewhite;">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Enter employee details</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="empID" placeholder="Id">
+                    <input type="text" class="form-control" name="empName" placeholder="Name">
+                    <input type="text" class="form-control" name="empPhone" placeholder="Phone no.">
+                    <p>Address</p>
+                    <input type="text" class="form-control" name="empCity" placeholder="City">
+                    <input type="text" class="form-control" name="empState" placeholder="State">
+                    <input type="text" class="form-control" name="empPostcode" placeholder="Postcode">
+                    <button type="submit" class="btn3d btn btn-warning">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="row" style="background-color:rgb(252, 216, 169);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Sale details</p>
+
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="salesID" placeholder="Sale Id">
+                    <input type="text" class="form-control" name="pID" placeholder="Product id">
+                    <input type="text" class="form-control" name="empID" placeholder="Employee id">
+                    <input type="text" class="form-control" name="pQuanSold" placeholder="Product quantity sold">
+                    <input type="text" class="form-control" name="pPricePerUnit" placeholder="Price per unit">
+                    <input type="text" class="form-control" name="day" placeholder="day">
+                    <input type="text" class="form-control" name="month" placeholder="month">
+                    <input type="text" class="form-control" name="year" placeholder="year">
+                </div>
+                <button type="submit" class="btn3d btn btn-warning">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
+            </form>
+        </div>
+
+        <div class="row" style="background-color:rgb(253, 205, 145);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Product details</p>
+
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="pID" placeholder="Product id">
+                    <input type="text" class="form-control" name="pName" placeholder="Product name">
+                    <input type="text" class="form-control" name="pQuanInStore" placeholder="Stock quantity">
+                    <input type="text" class="form-control" name="pCost" placeholder="Cost per unit">
+                    <input type="text" class="form-control" name="pPrice" placeholder="Price per unit">
+                    <input type="text" class="form-control" name="pProfit" placeholder="Profit">
+                    <input type="text" class="form-control" name="suppID" placeholder="Supplier ID">
+                </div>
+                <button type="submit" class="btn3d btn btn-warning">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
+            </form>
+        </div>
+
+
+        <div class="row" style="background-color:rgb(255, 189, 113);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Order details</p>
+
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="orderID" placeholder="Order id">
+                    <input type="text" class="form-control" name="empID" placeholder="Emp Id">
+                    <input type="text" class="form-control" name="suppID" placeholder="Supp Id">
+                    <input type="text" class="form-control" name="pID" placeholder="Product Id">
+                    <input type="text" class="form-control" name="Quantity" placeholder="Quantity">
+                </div>
+                <button type="submit" class="btn3d btn btn-warning">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
+            </form>
+        </div>
+
+
+        <div class="row" style="background-color:rgb(250, 168, 68);">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Enter supplier details</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="suppID" placeholder="Id">
+                    <input type="text" class="form-control" name="suppName" placeholder="Name">
+                    <input type="text" class="form-control" name="suppPhone" placeholder="Phone no.">
+                    <p>Address</p>
+                    <input type="text" class="form-control" name="suppCity" placeholder="City">
+                    <input type="text" class="form-control" name="suppState" placeholder="State">
+                    <input type="text" class="form-control" name="suppPostcode" placeholder="Postcode">
+                    <button type="submit" class="btn3d btn btn-warning">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
+                </div>
+            </form>
+
+        </div>
+
+</body>
+
+</html>

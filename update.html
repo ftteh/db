@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/3dbut.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/input.menu.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/emp.menu.js"></script>
+</head>
+
+<body class="container align-self-center">
+    <?php
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "test";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{
+
+            if (isset($_POST["tb_updated"]))                         
+            {
+                $tb_updated = $_POST["tb_updated"];
+                $refer_to = $_POST["refer_to"];
+
+                $sql = "update product as t1,( SELECT pPrice, pCost, pProfit FROM Product WHERE pID = '".$refer_to."') as t2 set t1.pPrice=t2.pPrice,t1.pCost=t2.pCost,t1.pProfit=t2.pProfit where t1.pID = '".$tb_updated."';";
+                
+                if ($conn->query($sql) === TRUE) {
+                    echo "Updated successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            if (isset($_POST["term"]))                         
+            {
+                $term = $_POST["term"];
+                $suppName = $_POST["suppName"];
+
+                $sql =     "UPDATE Supplier 
+                SET suppName = '".$suppName."' WHERE suppName LIKE '%".$term."%'" ;
+            
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Changed to $suppName successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+            if (isset($_POST["notin1"]))                         
+            {
+                $notin1 = $_POST["notin1"];
+                $notin2 = $_POST["notin2"];
+                $x = $_POST["x"];
+
+                $sql =     "UPDATE Sales
+                            SET day=$x
+                            WHERE day NOT IN ($notin1,$notin2);
+            ";
+            
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Changed to $x successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+
+            if (isset($_POST["to_empName"]))                         
+            {
+                $to_empName = $_POST["to_empName"];
+                $date = $_POST["date"];
+
+                $sql =     "UPDATE Orders
+                            SET empID=(SELECT empID FROM Employee WHERE empName= '$to_empName')
+                            WHERE orderDate='$date';
+                ";
+            
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Changed to $to_empName successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        } 
+        ?>
+
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="main.html">Home</a>
+                </li>
+                <li>
+                        <a href="input.html">Input</a>
+                    </li>
+                <li>
+                    <a href="update.html">Update</a>
+                </li>
+                <li>
+                    <a href="delete.html">Delete</a>
+                </li>
+                <li>
+                    <a href="query.html">Query</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="row" style="background-color:#d7fafa;">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Update product price,cost and profit same as</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="tb_updated" placeholder="To be updated">
+                    <input type="text" class="form-control" name="refer_to" placeholder="Refer to">
+                    <button type="submit" class="btn btn-info btn btn3d">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Update</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row" style="background-color:#d7fafa;">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Update supplier name which consists</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="term" placeholder="term">
+                    <input type="text" class="form-control" name="suppName" placeholder="New name">
+                    <button type="submit" class="btn btn-info btn btn3d">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Update</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="row" style="background-color:#d7fafa;">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Update Sales day not equal to x:</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="notin1" placeholder="not equal 1">
+                    <input type="text" class="form-control" name="notin2" placeholder="not equal 2">
+                    <input type="text" class="form-control" name="x" placeholder="To this value">
+                    <button type="submit" class="btn btn-info btn btn3d">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Update</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row" style="background-color:#d7fafa;">
+            <form class="form-inline" method="post" action="<?php $_PHP_SELF ?>">
+                <p class="text-center">Update order date to this employee name:</p>
+                <div class="form-group mx-sm-3">
+                    <input type="text" class="form-control" name="date" placeholder="date (yyyy-mm-dd)">
+                    <input type="text" class="form-control" name="to_empName" placeholder="to employee name">
+                    <button type="submit" class="btn btn-info btn btn3d">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>Update</button>
+                </div>
+            </form>
+        </div>
+ 
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<html>
+        
+    <head>
+            <style>
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                    
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                    </style>
+    </head>
+    <body>
+        <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "test";
+                
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                else{
+                    if(isset($_POST["x"])){
+
+                        $sql = "
+                        SELECT Employee.empName, Supplier.suppName
+                        FROM Employee, Supplier
+                        WHERE Employee.empName LIKE '".$_POST["x"]."%'
+                        AND Supplier.suppName LIKE '%".$_POST["y"]."%';";
+                        
+                        echo "<h1>".$sql."</h1>";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            echo "<table><tr><th>empName</th><th>suppName</th></tr>";
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr><td>".$row["empName"]."</td><td>".$row["suppName"]."</td></tr>";
+                            }
+                            echo "</table>";
+                        }
+                    }
+                        else {
+                            echo "0 results";
+                        }
+                } 
+                ?>
+    
+                </body>
+    </html>

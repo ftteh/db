@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Query</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/3dbut.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/input.menu.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/emp.menu.js"></script>
+</head>
+
+
+
+<body class="container align-self-center">
+    <nav>
+        <ul>
+            <li>
+                <a href="main.html">Home</a>
+            </li>
+            <li>
+                <a href="input.html">Input</a>
+            </li>
+            <li>
+                <a href="update.html">Update</a>
+            </li>
+            <li>
+                <a href="delete.html">Delete</a>
+            </li>
+            <li>
+                <a href="query.html">Query</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">a)List all the details of employee ordered by employee’s identification number&nbsp;&nbsp;
+            <button onclick="location.href='empinfo.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">b)List all the products in the mini mart ordered by product identification code.&nbsp;&nbsp;
+            <button onclick="location.href='productinfoo.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">c)List all the orders sent to supplier.&nbsp;&nbsp;
+            <button onclick="location.href='orderinfo.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">d)List all the details of order ordered by order’s date.&nbsp;&nbsp;
+            <button onclick="location.href='orderinfoo.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderinfos.html">
+            <p class="text-center">e)Enter supplier id for order search</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="suppID" placeholder="supplier id">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderinfoes.html">
+            <p class="text-center">f)orders placed by employee _ and received by supplier _ or sent by employee _</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="emp1" placeholder="Employee 1">
+                <input type="text" class="form-control" name="emp2" placeholder="Employee 2">
+                <input type="text" class="form-control" name="supp" placeholder="Supplier">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderinfoees.html">
+            <p class="text-center">g)orders placed by employee _ or _ and received by supplier _</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="emp11" placeholder="Employee 1">
+                <input type="text" class="form-control" name="emp22" placeholder="Employee 2">
+                <input type="text" class="form-control" name="supp1" placeholder="Supplier">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderinfob.html">
+            <p class="text-center">h) orders which placed between FROM to DATE</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="date1" placeholder="FROM">
+                <input type="text" class="form-control" name="date2" placeholder="TO">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">i)List the name and quantity of product in the store in descending order.&nbsp;&nbsp;
+            <button onclick="location.href='productinfod.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="empsuplike.html">
+            <p class="text-center">j)name of employee who starts their name by 'x' and supplier which their name consist of 'y'</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="x" placeholder="x">
+                <input type="text" class="form-control" name="y" placeholder="y">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!--     <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="productinfoe.html">
+            <p class="text-center">k)name and quantity of product sold by employee:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="s_empID" placeholder="employee id">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div> -->
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center">k)List the product name and the profit gained for each product in ascending order of the profit. &nbsp;&nbsp;
+            <button onclick="location.href='productinfop.html';" class="btn btn-magick btn btn3d">
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="productinfodate.html">
+            <p class="text-center">l)Product name by order date:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="orderDate" placeholder="Order date yyyy-mm-dd">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>m)List the product name and the profit gained for each product in ascending order of the profit. &nbsp;&nbsp;
+        <button onclick="location.href='productinfop.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>n)List the details of employees(id, name, address, contact number) who has or has no sales and details of sales(sales
+        id, date). &nbsp;&nbsp;
+        <button onclick="location.href='emphnosales.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>o)List the details of employees(id, name, address, contact number) who has no sales. &nbsp;&nbsp;
+        <button onclick="location.href='empnosales.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>p)List all the employee’s id and their name as well as what product what product they sold and when the product
+        was sold in the ascending order of date. &nbsp;&nbsp;
+        <button onclick="location.href='q.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>q)Identify the total number of employee working in the mini mart. &nbsp;&nbsp;
+        <button onclick="location.href='empinfocount.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderjoin.html">
+            <p class="text-center">r)numbers of products ordered on:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="odate" placeholder="order date">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <p class="text-center"></p>s)Identify the number of type of product that is being sold in the mini mart. &nbsp;&nbsp;
+        <button onclick="location.href='productcount.html';" class="btn btn-magick btn btn3d">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>List</button>
+        </p>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="profitday.html">
+            <p class="text-center">t)Sales on date:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="s1date" placeholder="day">
+                <input type="text" class="form-control" name="s1month" placeholder="month">
+                <input type="text" class="form-control" name="s1year" placeholder="year">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="profitmonth.html">
+            <p class="text-center">u)Sales on month:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="s2month" placeholder="month">
+                <input type="text" class="form-control" name="s2year" placeholder="year">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="profitannual.html">
+            <p class="text-center">v)Sales on year:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="syear" placeholder="year">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="orderinfoe.html">
+            <p class="text-center">List all the orders sent to given supplier S08.
+                <br>Enter employee id for order search</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="empID" placeholder="employee id">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div> -->
+
+    <!-- <div class="row" style="background-color:rgb(250, 215, 244);">
+        <form class="form-inline" method="post" action="productinfoon.html">
+            <p class="text-center">products ordered on:</p>
+            <div class="form-group mx-sm-3">
+                <input type="text" class="form-control" name="ondate" placeholder="date">
+                <button type="submit" class="btn3d btn btn-magick">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>search</button>
+            </div>
+        </form>
+    </div> -->
+
+</body>
+
+</html>
